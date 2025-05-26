@@ -1,0 +1,107 @@
+###########################################################
+# ###                                                 ### #
+# ### EPICS Database for                              ### #
+# ###   Ortec 994		                      ### #
+# ###                                                 ### #
+# ### author: D.Hampai	                              ### #
+# ###                                                 ### #
+# ### Ref: 1.0; 2025-02-26                            ### #
+# ###                                                 ### #
+# ###         port    Asyn Interface                  ### #
+# ###         ADD     device Address                  ### #
+###########################################################
+
+#HW_DEVICE=ortec;
+#DETECT=ortec1;
+
+#record(stringin, "ortec:model") {
+record(stringin, "$(DETECT):model") {
+	field(DESC, "Device Version")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(INP, "@ort_994.proto getModel() $(ASYNPORT)")
+	field(PINI, "YES")
+}
+#record(stringin, "ortec:init") {
+record(stringin, "$(DETECT):init") {
+        field(DESC, "Initialization")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setInit() $(ASYNPORT)")
+        field(PINI, "NO")
+#        field(PINI, "YES")
+#        field(VAL, "INIT")
+}
+#record(stringin, "ortec:getcoupr") {
+record(stringin, "$(DETECT):getcoupr") {
+        field(DESC, "Show Count Preset")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getSettings() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+#record(stringout, "ortec:setcoupr") {
+record(stringout, "$(DETECT):setcoupr") {
+        field(DESC, "Set Count Preset")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(OUT, "@ort_994.proto setSettings() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#record(stringin, "ortec:getdisplay") {
+record(stringin, "$(DETECT):getdisplay") {
+        field(DESC, "Show Display")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getDisplay() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+#record(stringout, "ortec:setdisplay") {
+record(stringout, "$(DETECT):setdisplay") {
+        field(DESC, "Set Display")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(OUT, "@ort_994.proto setDisplay() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#record(stringin, "ortec:start") {
+record(stringin, "$(DETECT):start") {
+        field(DESC, "Start Counting")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setStart() $(ASYNPORT)")
+#        field(INP, "@ort_994.proto getCount() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#record(stringin, "ortec:constart") {
+record(stringin, "$(DETECT):constart") {
+        field(DESC, "Start Continuos Counting")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setConStart() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#record(stringin, "ortec:stop") {
+record(stringin, "$(DETECT):stop") {
+        field(DESC, "Stop Counting")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setStop() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#record(stringin, "ortec:count") {
+record(stringin, "$(DETECT):count") {
+        field(DESC, "Show Counts")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getCount() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+#record(stringin, "ortec:clearcount") {
+record(stringin, "$(DETECT):clearcount") {
+        field(DESC, "Clear Counts")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto clearCount() $(ASYNPORT)")
+        field(PINI, "NO")
+}

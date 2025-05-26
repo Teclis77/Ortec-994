@@ -1,0 +1,111 @@
+#################################################
+# ###                                       ### #
+# ### StreamDevice Protocol for             ### #
+# ### Ortec 994		                    ### #
+# ###                                       ### #
+# ### author: D. Hampai                     ### #
+# ###                                       ### #
+# ### Ref 1.0; 2025-02-25                   ### #
+#################################################
+
+###################
+# ### Globals ### #
+###################
+
+#Terminator = CR LF;
+#Terminator = LF;
+Terminator = CR;
+ReplyTimeout = 1000;
+ReadTimeout = 1000;
+HW_DEVICE="ortec";
+#
+#	Protocols
+#
+getModel {
+	out "SHOW_VERSION";
+	in "%s";
+	ExtraInput = Ignore;
+#	in "%s";
+}
+setInit {
+	out "INIT";
+	in "%s";
+        @init {
+                out "INIT";
+		in "%s";
+        }
+}
+getSettings {
+	out "SH_COU_PRE";
+	in "%s";
+	ExtraInput = Ignore;
+#	in "%s";
+}
+setSettings {
+	out "SET_COUNT_PRESET %s";
+	in "%s";
+#	ExtraInput = Ignore;
+	@init { 
+		out "SET_COUNT_PRESET 10,1";
+#		ExtraInput = Ignore;
+		in "%s";
+	}
+}
+getDisplay {
+	out "SH_DISP";
+	in "%s";
+	ExtraInput = Ignore;
+#	in "%s";
+}
+setDisplay {
+	out "SET_DISPLAY %s";
+	in "%s";
+	ExtraInput = Ignore;
+        @init {
+                out "SET_DISPLAY 0";
+                in "%s";
+#		ExtraInput = Ignore;
+        }
+}
+setStart {
+	out "START";
+	in "%s";
+#	ExtraInput = Ignore;
+	wait = 1500; 
+#	out getCount;
+	out "SH_COU";
+	in "%s";
+	ExtraInput = Ignore;
+#	in "%s";
+	out "CL_COU";
+	in "%s";
+	out "STOP";
+	in "%s";
+}
+setConStart {
+        out "START";
+#        in "%s";
+	ExtraInput = Ignore;
+	wait = 1500; 
+        out "SH_COU";
+        in "%s";
+	ExtraInput = Ignore;
+#        in "%s";
+        out "CL_COU";
+	ExtraInput = Ignore;
+#        in "%s";
+}
+setStop {
+        out "STOP";
+        in "%s";
+}
+getCount {
+        out "SH_COU";
+        in "%s";
+	ExtraInput = Ignore;
+#        in "%s";
+}
+clearCount {
+	out "CL_COU";
+	in "%s";
+}

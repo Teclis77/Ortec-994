@@ -1,0 +1,129 @@
+###########################################################
+# ###                                                 ### #
+# ### EPICS Database for                              ### #
+# ###   Ortec 994		                      ### #
+# ###                                                 ### #
+# ### author: D.Hampai - M. Montis                    ### #
+# ###                                                 ### #
+# ### Ref: 1.1; 2025-04-23                            ### #
+# ###                                                 ### #
+# ###         port    Asyn Interface                  ### #
+# ###         ADD     device Address                  ### #
+###########################################################
+
+record(stringin, "$(DETECT):model") {
+	field(DESC, "Device Version")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(INP, "@ort_994.proto getModel() $(ASYNPORT)")
+	field(PINI, "YES")
+}
+record(stringin, "$(DETECT):init") {
+        field(DESC, "Initialization")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setInit() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+record(stringout, "$(DETECT):setdisplay") {
+        field(DESC, "Set Display")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(OUT, "@ort_994.proto setDisplay() $(ASYNPORT)")
+        field(PINI, "NO")
+	field(FLNK, "$(DETECT):getDisplay")
+}
+record(stringin, "$(DETECT):getcoupr") {
+        field(DESC, "Show Count Preset")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getSettings() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+record(stringout, "$(DETECT):setcoupr") {
+        field(DESC, "Set Count Preset")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(OUT, "@ort_994.proto setSettings() $(ASYNPORT)")
+        field(PINI, "NO")
+	field(FLNK, "$(DETECT):getcoupr")
+}
+record(stringin, "$(DETECT):stop") {
+        field(DESC, "Stop Counting")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setStop() $(ASYNPORT)")
+        field(PINI, "NO")
+}
+#########
+#	Booleano per richiamare Leggi Conteggio
+#########
+record(bo, "$(DETECT):readcount"){
+        field(DESC, "Show Counts")
+	field(FLNK, "$(DETECT):count")
+}
+#record(ai, "f1"){
+#	field(SCAN, "Passive")
+#}
+#record(ai, "f2"){
+#	field(SCAN, "Passive")
+#}
+record(ai, "$(DETECT):count") {
+        field(DESC, "Show Counts")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getCount($(DETECT):show_count) $(ASYNPORT)")
+#        field(INP, "@ort_994.proto getCount(f1,f2) $(ASYNPORT)")
+#        field(INP, "@ort_994.proto getCount() $(ASYNPORT)")
+        field(PINI, "YES")
+	field(FLNK, "$(DETECT):show_count")
+}
+record(calc, "$(DETECT):show_count"){
+	field(DESC, "Show selected Count")
+	field(INPA, "$(DETECT):getDisplay")
+#	field(INPB, "f1")
+#	field(INPC, "f2")
+	field(CALC, "(A=0)?B:C") #if A=0 then B else (:) C
+}
+##
+record(stringin, "$(DETECT):clearcount") {
+        field(DESC, "Clear Counts")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto clearCount() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+#########
+#	Booleano per richiamare la funzione Leggi Display
+#########
+record(bo, "$(DETECT):showdisplay") {
+	field(DESC, "Show Display")
+	field(FLNK, "$(DETECT):getDisplay")
+}
+record(bi, "$(DETECT):getDisplay") {
+        field(DESC, "Test Display")
+#        field(SCAN, "1 second")
+        field(SCAN, "Passive")
+	field(ZNAM, "0")
+	field(ONAM, "1")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto getDisplay() $(ASYNPORT)")
+        field(PINI, "YES")
+}
+record(bo, "$(DETECT):starting"){
+	field(DESC, "Starting")
+	field(FLNK, "$(DETECT):clearcountstart")
+}
+record(stringin, "$(DETECT):clearcountstart") {
+        field(DESC, "Clear Counts for Start")
+        field(SCAN, "Passive")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto clearCount() $(ASYNPORT)")
+	field(FLNK, "$(DETECT):start")
+}
+record(stringin, "$(DETECT):start"){
+	field(DESC, "Start")
+        field(DTYP, "stream")
+        field(INP, "@ort_994.proto setStart() $(ASYNPORT)")
+	field(FLNK, "$(DETECT):readcount")
+}
