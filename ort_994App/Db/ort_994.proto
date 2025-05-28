@@ -70,6 +70,8 @@ getDisplay {
 }
 setStart {
 	out "START";
-	wait 2000;
+	wait 1500;
+	in "%s";
+	out "STOP";
 	in "%s";
 }
