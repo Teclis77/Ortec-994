@@ -40,6 +40,13 @@ ort_994_SRCS_vxWorks += -nil-
 # Add support from base/src/vxWorks if needed
 #ort_994_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
+ifdef EPICS_QSRV_MAJOR_VERSION
+    ort_994_LIBS += qsrv
+    ort_994_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
+    ort_994_DBD += PVAServerRegister.dbd
+    ort_994_DBD += qsrv.dbd
+endif
+
 # Finally link to the EPICS Base libraries
 ort_994_LIBS += $(EPICS_BASE_IOC_LIBS)
 
