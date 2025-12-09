@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 #DB += xxx.db
 DB += ort_994.proto
 DB += ort_994.db
+DB += ort_994.val
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

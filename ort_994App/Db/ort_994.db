@@ -18,37 +18,37 @@ record(stringin, "$(DETECT):model") {
 	field(INP, "@ort_994.proto getModel() $(ASYNPORT)")
 	field(PINI, "YES")
 }
-record(stringin, "$(DETECT):init") {
+record(stringin, "$(DETECT)_$(card)_$(axis):init") {
         field(DESC, "Initialization")
         field(SCAN, "Passive")
         field(DTYP, "stream")
         field(INP, "@ort_994.proto setInit() $(ASYNPORT)")
         field(PINI, "NO")
 }
-record(stringout, "$(DETECT):setdisplay") {
+record(stringout, "$(DETECT)_$(card)_$(axis):setdisplay") {
         field(DESC, "Set Display")
         field(SCAN, "Passive")
         field(DTYP, "stream")
         field(OUT, "@ort_994.proto setDisplay() $(ASYNPORT)")
         field(PINI, "NO")
-	field(FLNK, "$(DETECT):getDisplay")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):getDisplay")
 }
-record(stringin, "$(DETECT):getcoupr") {
+record(stringin, "$(DETECT)_$(card)_$(axis):getcoupr") {
         field(DESC, "Show Count Preset")
         field(SCAN, "Passive")
         field(DTYP, "stream")
         field(INP, "@ort_994.proto getSettings() $(ASYNPORT)")
         field(PINI, "YES")
 }
-record(stringout, "$(DETECT):setcoupr") {
+record(stringout, "$(DETECT)_$(card)_$(axis):setcoupr") {
         field(DESC, "Set Count Preset")
         field(SCAN, "Passive")
         field(DTYP, "stream")
         field(OUT, "@ort_994.proto setSettings() $(ASYNPORT)")
         field(PINI, "NO")
-	field(FLNK, "$(DETECT):getcoupr")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):getcoupr")
 }
-record(stringin, "$(DETECT):stop") {
+record(stringin, "$(DETECT)_$(card)_$(axis):stop") {
         field(DESC, "Stop Counting")
         field(SCAN, "Passive")
         field(DTYP, "stream")
@@ -58,9 +58,9 @@ record(stringin, "$(DETECT):stop") {
 #########
 #	Booleano per richiamare Leggi Conteggio
 #########
-record(bo, "$(DETECT):readcount"){
+record(bo, "$(DETECT)_$(card)_$(axis):readcount"){
         field(DESC, "Show Counts")
-	field(FLNK, "$(DETECT):count")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):count")
 }
 #record(ai, "f1"){
 #	field(SCAN, "Passive")
@@ -68,25 +68,25 @@ record(bo, "$(DETECT):readcount"){
 #record(ai, "f2"){
 #	field(SCAN, "Passive")
 #}
-record(ai, "$(DETECT):count") {
+record(ai, "$(DETECT)_$(card)_$(axis):count") {
         field(DESC, "Show Counts")
         field(SCAN, "Passive")
         field(DTYP, "stream")
-        field(INP, "@ort_994.proto getCount($(DETECT):show_count) $(ASYNPORT)")
+        field(INP, "@ort_994.proto getCount($(DETECT)_$(card)_$(axis):show_count) $(ASYNPORT)")
 #        field(INP, "@ort_994.proto getCount(f1,f2) $(ASYNPORT)")
 #        field(INP, "@ort_994.proto getCount() $(ASYNPORT)")
         field(PINI, "YES")
-	field(FLNK, "$(DETECT):show_count")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):show_count")
 }
-record(calc, "$(DETECT):show_count"){
+record(calc, "$(DETECT)_$(card)_$(axis):show_count"){
 	field(DESC, "Show selected Count")
-	field(INPA, "$(DETECT):getDisplay")
+	field(INPA, "$(DETECT)_$(card)_$(axis):getDisplay")
 #	field(INPB, "f1")
 #	field(INPC, "f2")
 	field(CALC, "(A=0)?B:C") #if A=0 then B else (:) C
 }
 ##
-record(stringin, "$(DETECT):clearcount") {
+record(stringin, "$(DETECT)_$(card)_$(axis):clearcount") {
         field(DESC, "Clear Counts")
         field(SCAN, "Passive")
         field(DTYP, "stream")
@@ -96,11 +96,11 @@ record(stringin, "$(DETECT):clearcount") {
 #########
 #	Booleano per richiamare la funzione Leggi Display
 #########
-record(bo, "$(DETECT):showdisplay") {
+record(bo, "$(DETECT)_$(card)_$(axis):showdisplay") {
 	field(DESC, "Show Display")
-	field(FLNK, "$(DETECT):getDisplay")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):getDisplay")
 }
-record(bi, "$(DETECT):getDisplay") {
+record(bi, "$(DETECT)_$(card)_$(axis):getDisplay") {
         field(DESC, "Test Display")
 #        field(SCAN, "1 second")
         field(SCAN, "Passive")
@@ -110,20 +110,47 @@ record(bi, "$(DETECT):getDisplay") {
         field(INP, "@ort_994.proto getDisplay() $(ASYNPORT)")
         field(PINI, "YES")
 }
-record(bo, "$(DETECT):starting"){
+record(bo, "$(DETECT)_$(card)_$(axis):starting"){
 	field(DESC, "Starting")
-	field(FLNK, "$(DETECT):clearcountstart")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):clearcountstart")
 }
-record(stringin, "$(DETECT):clearcountstart") {
+record(stringin, "$(DETECT)_$(card)_$(axis):clearcountstart") {
         field(DESC, "Clear Counts for Start")
         field(SCAN, "Passive")
         field(DTYP, "stream")
         field(INP, "@ort_994.proto clearCount() $(ASYNPORT)")
-	field(FLNK, "$(DETECT):start")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):start")
 }
-record(stringin, "$(DETECT):start"){
+record(stringin, "$(DETECT)_$(card)_$(axis):start"){
 	field(DESC, "Start")
         field(DTYP, "stream")
         field(INP, "@ort_994.proto setStart() $(ASYNPORT)")
-	field(FLNK, "$(DETECT):readcount")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):readcount")
+}
+#
+#	If Ready?
+#
+record(bo, "$(DETECT)_$(card)_$(axis):reqready") {
+	field(DESC, "Request if ready")
+	field(FLNK, "$(DETECT)_$(card)_$(axis):ready")
+}
+record(stringin, "$(DETECT)_$(card)_$(axis):ori_ready") {
+	field(DESC, "Is ready?")
+#	field(DTYP, "stream")
+#	field(INP, "@ort_994.proto getReady() $(ASYNPORT)")
+	field(VAL, "$(ready)")
+}
+record(stringin, "$(DETECT)_$(card)_$(axis):term_ready") {
+	field(DESC, "Terminator for Detector Status")
+	field(VAL, "$(ready)")
+	field(PINI, "YES")
+}
+record(scalcout, "$(DETECT)_$(card)_$(axis):ready") {
+        field(DESC, "Is ready?")
+#        field(DTYP, "stream")
+        field(INAA, "$(DETECT)_$(card)_$(axis):ori_ready")
+        field(INBB, "$(DETECT)_$(card)_$(axis):term_ready")
+#        field(INAA, "$(DETECT)_$(card)_$(axis):term_ready")
+#	field(CALC, "AA=1?1:0")
+	field(CALC, "AA=BB?1:0")
 }

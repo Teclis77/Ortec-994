@@ -24,11 +24,13 @@ ort_994_DBD += base.dbd
 ort_994_DBD += stream-base.dbd
 ort_994_DBD += drvAsynIPPort.dbd
 ort_994_DBD += asyn.dbd
+ort_994_DBD += calc.dbd
 
 # Add all the support libraries needed by this IOC
 #ort_994_LIBS += xxx
 ort_994_LIBS += stream
 ort_994_LIBS += asyn
+ort_994_LIBS += calc
 
 # ort_994_registerRecordDeviceDriver.cpp derives from ort_994.dbd
 ort_994_SRCS += ort_994_registerRecordDeviceDriver.cpp

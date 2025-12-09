@@ -28,12 +28,15 @@ asynOctetSetOutputEos($(PORT_ORTEC),0,"\n")
 asynSetTraceMask($(PORT_ORTEC),-1,0x9);
 asynSetTraceIOMask($(PORT_ORTEC),-1,0x2)
 
-## Load record instances
-#DEV_SEL=ortec_1
-#dbLoadRecords("db/ort_994.db","user=xlabsrv2")
-#dbLoadRecords("db/ort_994.db", "ASYNPORT=$(PORT_ORTEC)")
-dbLoadRecords("db/ort_994.db", "ASYNPORT=$(PORT_ORTEC), DETECT=ortec_1")
-#dbLoadRecords("db/ort_994.db", "DETEC=$(DEV_SEL)")
+### Load record instances
+##DEV_SEL=ortec_1
+##dbLoadRecords("db/ort_994.db","user=xlabsrv2")
+##dbLoadRecords("db/ort_994.db", "ASYNPORT=$(PORT_ORTEC)")
+
+#dbLoadRecords("db/ort_994.db", "ASYNPORT=$(PORT_ORTEC), DETECT=ortec_1")
+dbLoadTemplate("db/ort_994.val")
+
+##dbLoadRecords("db/ort_994.db", "DETEC=$(DEV_SEL)")
 
 cd "${TOP}/iocBoot/${IOC}"
 iocInit

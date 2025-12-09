@@ -75,3 +75,6 @@ setStart {
 	out "STOP";
 	in "%s";
 }
+#getReady {
+#	out "1";
+#}
