@@ -18,6 +18,14 @@ record(stringin, "$(DETECT):model") {
 	field(INP, "@ort_994.proto getModel() $(ASYNPORT)")
 	field(PINI, "YES")
 }
+# Type = 1 Counter (in scan save directly)
+# Type = 2 Array of data (in scan save separately and mentioned in scan file)
+record(ai, "$(DETECT)_$(card)_$(axis):type") {
+        field(DESC, "Type of detector")
+        field(SCAN, "Passive")
+	field(VAL, "1")
+        field(PINI, "YES")
+}
 record(stringin, "$(DETECT)_$(card)_$(axis):init") {
         field(DESC, "Initialization")
         field(SCAN, "Passive")
