@@ -26,6 +26,12 @@ record(ai, "$(DETECT)_$(card)_$(axis):type") {
 	field(VAL, "1")
         field(PINI, "YES")
 }
+record(stringin, "$(DETECT)_$(card)_$(axis):busy") {
+        field(DESC, "Busy $(card)_$(axis) - (0=busy, 1=ready)")
+        field(SCAN, "Passive")
+        field(VAL, "1")
+        field(PINI, "YES")
+}
 record(stringin, "$(DETECT)_$(card)_$(axis):init") {
         field(DESC, "Initialization")
         field(SCAN, "Passive")
