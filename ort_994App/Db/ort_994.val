@@ -10,5 +10,5 @@
 
 file db/ort_994.db {
     pattern { card, axis, ASYNPORT, DETECT, EGU, ready }
-        { 1, 1 , "serial_ort", "ortec_1"", sec, 1 }
+        { 1, 1 , "serial_ort", "ortec_1", sec, 1 }
 }
