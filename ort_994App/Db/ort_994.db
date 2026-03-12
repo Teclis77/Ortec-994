@@ -32,7 +32,7 @@ record(stringin, "$(DETECT)_$(card)_$(axis):busy") {
         field(VAL, "1")
         field(PINI, "YES")
 }
-record(stringin, "$(MOT)_$(card)_$(axis):err") {
+record(stringin, "$(DETECT)_$(card)_$(axis):err") {
         field(DESC, "Get Error $(card) $(axis)")
         field(SCAN, "Passive")
 	field(VAL, "OK")
