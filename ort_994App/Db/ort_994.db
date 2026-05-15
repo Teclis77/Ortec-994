@@ -110,6 +110,14 @@ record(calc, "$(DETECT)_$(card)_$(axis):data"){
 #	field(INPC, "f2")
 	field(CALC, "(A=0)?B:C") #if A=0 then B else (:) C
 }
+#
+#	Detector type = 1, so no ned file out to store the data
+#
+record(stringout, "$(DETECT)_$(card)_$(axis):dataout") {
+	field(DESC, "Name of file to store")
+	field(VAL, "test.dat")
+	field(PINI, "YES")
+}
 ##
 record(stringin, "$(DETECT)_$(card)_$(axis):clearcount") {
         field(DESC, "Clear Counts")
